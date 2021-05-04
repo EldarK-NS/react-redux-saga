@@ -1,12 +1,21 @@
 import React from 'react'
 import Post from './Post'
+import { connect } from 'react-redux'
 
-function Posts({ posts }) {
-    if (!posts.length) {
+
+function Posts({ syncPosts }) {
+    if (!syncPosts.length) {
         return <p className="text-center">No posts</p>
     }
-    return posts.map(post => <Post post={post} key={post} />)
+    return syncPosts.map(post => <Post post={post} key={post.id} />)
 
 }
+const mapStateToProps = state => {
+    console.log(state)
+    return {
+        syncPosts:state.posts.posts
+    }
+}
 
-export default Posts
+export default connect(mapStateToProps, null)(Posts)
+
